@@ -1,9 +1,9 @@
 function WelcomeMessage() {
   return (
-    <>
-      <h1>Welcome to ALX React</h1>
-      <p>This is your first React component</p>
-    </>
+    <div>
+      <h1>Hello everyone, I am learning React at ALX!</h1>
+      <p>I am learning about JSX!</p>
+    </div>
   );
 }
 

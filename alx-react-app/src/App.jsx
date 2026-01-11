@@ -4,8 +4,6 @@ function App() {
   return (
     <>
       <WelcomeMessage />
-      <button>count is 0</button>
-      <p>Edit src/App.jsx and save to test HMR</p>
     </>
   );
 }
