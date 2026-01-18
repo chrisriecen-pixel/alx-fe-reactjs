@@ -13,37 +13,17 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted!');
+    console.log('Form submitted:', formData);
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Contact Us</h1>
+    <div>
+      <h2>Contact Us</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0' }}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={formData.email}
-          onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0' }}
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          value={formData.message}
-          onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0' }}
-        />
-        <button type="submit">Send Message</button>
+        <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+        <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+        <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Message" />
+        <button type="submit">Send</button>
       </form>
     </div>
   );
