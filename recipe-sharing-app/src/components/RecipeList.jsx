@@ -1,18 +1,23 @@
-import { useRecipeStore } from './recipeStore';
+const RecipeList = () => {
+  const { recipes, searchQuery } = useRecipeStore((state) => ({
+    recipes: state.recipes,
+    searchQuery: state.searchQuery,
+  }));
 
-function RecipeList() {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const filtered = recipes.filter((r) =>
+    `${r.title} ${r.description}`.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
-      {recipes.map((recipe) => (
+      {filtered.map((recipe) => (
         <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
+          <Link to={`/recipe/${recipe.id}`}>
+            <h3>{recipe.title}</h3>
+          </Link>
           <p>{recipe.description}</p>
         </div>
       ))}
     </div>
   );
-}
-
-export default RecipeList;
+};
