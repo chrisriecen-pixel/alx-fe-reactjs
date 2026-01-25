@@ -7,23 +7,32 @@ const getStoredRecipes = () => {
 
 export const useRecipeStore = create((set) => ({
   recipes: getStoredRecipes(),
-  searchQuery: '',
-  categoryFilter: '',
-  setSearchQuery: (query) => set({ searchQuery: query }),
-  setCategoryFilter: (category) => set({ categoryFilter: category }),
+  searchTerm: '',
+  filteredRecipes: getStoredRecipes(),
+
+  setSearchTerm: (term) => {
+    set({ searchTerm: term });
+    set((state) => ({
+      filteredRecipes: state.recipes.filter((recipe) =>
+        `${recipe.title} ${recipe.description} ${recipe.ingredients || ''} ${recipe.prepTime || ''}`
+          .toLowerCase()
+          .includes(term.toLowerCase())
+      ),
+    }));
+  },
 
   addRecipe: (newRecipe) =>
     set((state) => {
       const updated = [...state.recipes, newRecipe];
       localStorage.setItem('recipes', JSON.stringify(updated));
-      return { recipes: updated };
+      return { recipes: updated, filteredRecipes: updated };
     }),
 
   deleteRecipe: (id) =>
     set((state) => {
       const updated = state.recipes.filter((r) => r.id !== id);
       localStorage.setItem('recipes', JSON.stringify(updated));
-      return { recipes: updated };
+      return { recipes: updated, filteredRecipes: updated };
     }),
 
   updateRecipe: (updatedRecipe) =>
@@ -32,6 +41,6 @@ export const useRecipeStore = create((set) => ({
         r.id === updatedRecipe.id ? updatedRecipe : r
       );
       localStorage.setItem('recipes', JSON.stringify(updated));
-      return { recipes: updated };
+      return { recipes: updated, filteredRecipes: updated };
     }),
 }));
