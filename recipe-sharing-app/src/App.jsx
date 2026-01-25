@@ -1,8 +1,10 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeList from './components/RecipeList';
+import RecipeDetails from './components/RecipeDetails';
 import { useRecipeStore } from './components/recipeStore';
 
-function App() {
+function Home() {
   const setSearchQuery = useRecipeStore((state) => state.setSearchQuery);
   const setCategoryFilter = useRecipeStore((state) => state.setCategoryFilter);
 
@@ -23,6 +25,17 @@ function App() {
       <AddRecipeForm />
       <RecipeList />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
