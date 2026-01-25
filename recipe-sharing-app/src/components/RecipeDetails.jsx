@@ -15,6 +15,7 @@ function RecipeDetails() {
     <div>
       <h1>{recipe.title}</h1>
       <p>{recipe.description}</p>
+      <p><strong>Category:</strong> {recipe.category}</p>
       <EditRecipeForm recipe={recipe} />
       <DeleteRecipeButton recipeId={recipe.id} />
     </div>

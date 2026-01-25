@@ -7,6 +7,10 @@ const getStoredRecipes = () => {
 
 export const useRecipeStore = create((set) => ({
   recipes: getStoredRecipes(),
+  searchQuery: '',
+  categoryFilter: '',
+  setSearchQuery: (query) => set({ searchQuery: query }),
+  setCategoryFilter: (category) => set({ categoryFilter: category }),
 
   addRecipe: (newRecipe) =>
     set((state) => {
