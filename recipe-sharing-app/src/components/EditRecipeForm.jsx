@@ -8,7 +8,7 @@ function EditRecipeForm({ recipe }) {
   const [category, setCategory] = useState(recipe.category);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    event.preventDefault();
     updateRecipe({ ...recipe, title, description, category });
   };
 
