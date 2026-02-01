@@ -1,26 +1,43 @@
 import { useState } from 'react';
-import { fetchGitHubUser } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 function SearchUser() {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleSearch = async () => {
-    const data = await fetchGitHubUser(username);
-    setUserData(data);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(false);
+    setUserData(null);
+
+    try {
+      const data = await fetchUserData(username);
+      setUserData(data);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div style={{ padding: '20px' }}>
       <h2>GitHub User Search</h2>
-      <input
-        type="text"
-        placeholder="Enter GitHub username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter GitHub username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
 
+      {loading && <p>Loading...</p>}
+      {error && <p>Looks like we can't find the user.</p>}
       {userData && (
         <div style={{ marginTop: '20px' }}>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
