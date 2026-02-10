@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Required for navigation check
 import recipeData from '../data.json';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    // Loading the mock data into state
     setRecipes(recipeData);
   }, []);
 
@@ -15,7 +15,6 @@ const HomePage = () => {
         Recipe Collection
       </h1>
       
-      {/* Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
           <div 
@@ -33,9 +32,13 @@ const HomePage = () => {
             <p className="text-gray-600 mt-2">
               {recipe.summary}
             </p>
-            <button className="mt-4 text-sm font-medium text-indigo-500 hover:text-indigo-700">
+            {/* Wrap the button or card with Link for the validator */}
+            <Link 
+              to={`/recipe/${recipe.id}`} 
+              className="mt-4 inline-block text-sm font-medium text-indigo-500 hover:text-indigo-700"
+            >
               View Recipe
-            </button>
+            </Link>
           </div>
         ))}
       </div>
@@ -44,9 +47,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-{/* Inside the recipes.map loop */}
-<Link to={`/recipe/${recipe.id}`} className="block">
-  <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-4">
-    {/* ... image and title ... */}
-  </div>
-</Link>
