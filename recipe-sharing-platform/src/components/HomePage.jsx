@@ -44,3 +44,9 @@ const HomePage = () => {
 };
 
 export default HomePage;
+{/* Inside the recipes.map loop */}
+<Link to={`/recipe/${recipe.id}`} className="block">
+  <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-4">
+    {/* ... image and title ... */}
+  </div>
+</Link>
